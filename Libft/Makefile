@@ -44,7 +44,10 @@ ft_printf/ft_put_hexadec.c\
 ft_printf/ft_putnbr.c\
 ft_printf/ft_putstr.c\
 ft_printf/ft_put_u.c\
-ft_printf/ft_put_voidp.c
+ft_printf/ft_put_voidp.c\
+get_next_line/get_next_line_utils.c\
+get_next_line/get_next_line.c\
+get_next_line/get_next_line.h
 
 OBJS := $(SRCS:%.c=%.o)
 

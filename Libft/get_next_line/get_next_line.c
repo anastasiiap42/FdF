@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:09:34 by apashkov          #+#    #+#             */
-/*   Updated: 2023/10/12 16:25:56 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/10/12 13:37:10 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ char	*read_file(char	*st_buffer, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	*st_buffer;
+	static char	*st_buffer[4096];
 	char		*line_to_return;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	st_buffer = read_file(st_buffer, fd);
-	if (!st_buffer)
-		return (free(st_buffer), NULL);
-	line_to_return = ft_strtrim(st_buffer, '\n');
-	st_buffer = ft_strtrim_the_rest(st_buffer, '\n');
+	st_buffer[fd] = read_file(st_buffer[fd], fd);
+	if (!st_buffer[fd])
+		return (free(st_buffer[fd]), NULL);
+	line_to_return = ft_strtrim(st_buffer[fd], '\n');
+	st_buffer[fd] = ft_strtrim_the_rest(st_buffer[fd], '\n');
 	return (line_to_return);
 }
