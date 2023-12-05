@@ -6,38 +6,13 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:09:15 by apashkov          #+#    #+#             */
-/*   Updated: 2023/10/12 09:30:54 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/05 18:03:13 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-char	*ft_strchr(const char *string, int ch)
-{
-	if (!string)
-		return (NULL);
-	while ((*string))
-	{
-		if (*string == (char)ch)
-			return ((char *)string);
-		string++;
-	}
-	if ((char)ch == '\0')
-		return ((char *)string);
-	return (NULL);
-}
-
-size_t	ft_strlen(const char *string)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (string[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin_gnl(char *s1, char *s2)
 {
 	char	*new;
 	int		x;
@@ -64,7 +39,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (new);
 }
 
-char	*ft_strtrim(char *s1, char set)
+char	*ft_strtrim_gnl(char *s1, char set)
 {
 	char	*str;
 	size_t	l;

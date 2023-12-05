@@ -6,7 +6,7 @@ COMPILER := cc
 
 FLAGS := -Wall -Wextra -Werror
 
-SRCS := 
+SRCS := fdf.c
 
 OBJS := $(SRCS:%.c=%.o)
 
@@ -20,7 +20,7 @@ $(NAME): $(OBJS) fdf.h
 	$(COMPILER) $(FLAGS) -o $(NAME) $(OBJS) ./Libft/libft.a
 
 clean:
-	@cd Libft/ && $(MAKE) --no-print-directory fclean
+	@cd Libft/ && $(MAKE) fclean --no-print-directory
 	rm -f $(OBJS)
 
 fclean: clean

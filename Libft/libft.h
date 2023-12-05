@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 10:02:00 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/03 15:57:41 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/05 18:05:31 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 # include <stddef.h>
 # include <unistd.h>
 # include <stdlib.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 100000
+# endif
 
 char		*free_array(char **array);
 long int	ft_atoi(const char *s);
@@ -52,5 +56,9 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 int			ft_tolower(int c);
 int			ft_toupper(int c);
 int			ft_printf(const char *input, ...);
+char		*ft_strjoin_gnl(char *s1, char *s2);
+char		*ft_strtrim_gnl(char *s1, char set);
+char		*ft_strtrim_the_rest(char *s1, char set);
+char		*get_next_line(int fd);
 
 #endif
