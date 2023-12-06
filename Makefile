@@ -6,7 +6,10 @@ COMPILER := cc
 
 FLAGS := -Wall -Wextra -Werror
 
-SRCS := fdf.c
+SRCS := read_file.c\
+fdf.c
+
+LDFLAGS = -Lminilibx-linux -L ./libft -lmlx -lXext -lX11 -lm -lft
 
 OBJS := $(SRCS:%.c=%.o)
 
@@ -17,7 +20,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) fdf.h
 	@cd Libft && $(MAKE) --no-print-directory
-	$(COMPILER) $(FLAGS) -o $(NAME) $(OBJS) ./Libft/libft.a
+	$(COMPILER) $(FLAGS) -o $(NAME) $(OBJS) $(LDFLAGS) ./Libft/libft.a
 
 clean:
 	@cd Libft/ && $(MAKE) fclean --no-print-directory

@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 10:02:00 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/05 18:05:31 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/06 14:51:58 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100000
+#  define BUFFER_SIZE 10000
 # endif
 
 char		*free_array(char **array);

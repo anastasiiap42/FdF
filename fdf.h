@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:44:07 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/05 19:04:54 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/06 19:38:38 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <errno.h>
+# include <mlx.h>
 
 typedef struct s_list
 {
@@ -27,7 +28,11 @@ typedef struct s_list
 	int				**matrix;
 	int				width;
 	int				length;
+	void			*mlx;
+	void			*window;
 	struct s_list	*next;
 }		t_list;
+
+void	algorithm(int x1, int y1, int x2, int y2, t_list *lst);
 
 #endif

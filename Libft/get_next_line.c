@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:09:34 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/05 19:20:42 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:07:44 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ char	*get_next_line(int fd)
 		return (free(st_buffer[fd]), NULL);
 	line_to_return = ft_strtrim_gnl(st_buffer[fd], '\n');
 	st_buffer[fd] = ft_strtrim_the_rest(st_buffer[fd], '\n');
-	printf("%s", line_to_return);
+	//printf("%s\n", line_to_return);
 	return (line_to_return);
 }
