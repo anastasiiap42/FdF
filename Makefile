@@ -9,7 +9,7 @@ FLAGS := -Wall -Wextra -Werror
 SRCS := read_file.c\
 fdf.c
 
-LDFLAGS = -Lminilibx-linux -L ./libft -lmlx -lXext -lX11 -lm -lft
+LDFLAGS = -Lminilibx-linux -LLibft -lmlx -lXext -lX11 -lm -lft
 
 OBJS := $(SRCS:%.c=%.o)
 

@@ -6,11 +6,12 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:41:30 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/06 19:42:26 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:26:55 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <X11/keysym.h>
 
 int	which_width(char *one_line)
 {
@@ -114,7 +115,12 @@ int	main(int argc, char *argv[])
 	input->window = mlx_new_window(input->mlx, 1920, 1080, "FdF");
 	if (!input->mlx)
 		return (perror("Mlx new window failed"), 1);
-	algorithm(10, 10, 600, 300, input);
+	input->zoom = 30;
+	/* input->image = mlx_new_image(input->mlx, 1920, 1080);
+	if (!input->image)
+		return (perror("Mlx new image failed"), 1); */
+	draw_lines(input);
+	//algorithm(60, 30, 300, 30, input);
 	mlx_loop(input->mlx);
 
 	/* ----------------------- Printing part ----------------------------------------*/
