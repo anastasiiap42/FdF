@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:41:30 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/07 17:26:55 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/11 19:53:25 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	which_width(char *one_line)
 	{
 		if (one_line[i] == ' '
 			&& (one_line[i + 1] != ' ' || one_line[i + 1] != '\0'))
+			res++;
+		if (one_line[i] != ' ' && one_line[i + 1] == '\0')
 			res++;
 	}
 	return (res);
@@ -108,7 +110,6 @@ int	main(int argc, char *argv[])
 	if (!input)
 		return (0);
 	read_from_file(argv[1], input);
-	
 	input->mlx = mlx_init();
 	if (!input->mlx)
 		return (perror("Mlx init failed"), 1);
@@ -116,11 +117,11 @@ int	main(int argc, char *argv[])
 	if (!input->mlx)
 		return (perror("Mlx new window failed"), 1);
 	input->zoom = 30;
-	/* input->image = mlx_new_image(input->mlx, 1920, 1080);
+	input->image = mlx_new_image(input->mlx, 1920, 1080);
 	if (!input->image)
-		return (perror("Mlx new image failed"), 1); */
+		return (perror("Mlx new image failed"), 1);
 	draw_lines(input);
-	//algorithm(60, 30, 300, 30, input);
+	//algorithm(50, 60, 40, 70, input);
 	mlx_loop(input->mlx);
 
 	/* ----------------------- Printing part ----------------------------------------*/

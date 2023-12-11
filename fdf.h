@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:44:07 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/07 16:36:36 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/11 17:31:26 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_list
 	void			*window;
 	void			*image;
 	int				zoom;
+	int				color;
 
 	struct s_list	*next;
 }		t_list;

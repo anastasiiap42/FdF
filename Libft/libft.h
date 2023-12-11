@@ -60,5 +60,6 @@ char		*ft_strjoin_gnl(char *s1, char *s2);
 char		*ft_strtrim_gnl(char *s1, char set);
 char		*ft_strtrim_the_rest(char *s1, char set);
 char		*get_next_line(int fd);
+void		ft_swap(int *a, int *b);
 
 #endif
