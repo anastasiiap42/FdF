@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:44:07 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/11 17:31:26 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:13:09 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <mlx.h>
+# include <math.h>
 
 typedef struct s_list
 {
@@ -34,6 +35,7 @@ typedef struct s_list
 	void			*image;
 	int				zoom;
 	int				color;
+	double			angle;
 
 	struct s_list	*next;
 }		t_list;

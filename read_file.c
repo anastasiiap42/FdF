@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:41:30 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/11 19:53:25 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/12 19:55:49 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,16 @@ int	which_length(char *argv1, t_list *lst)
 void	fill_in_matrix(int *matrix_line, char *line)
 {
 	char	**map_line;
-	int		rows;
+	int		c;
 
 	map_line = ft_split(line, ' ');
 	if (!map_line)
 		return ;
-	rows = 0;
-	while (map_line[rows])
+	c = -1;
+	while (map_line[++c])
 	{
-		matrix_line[rows] = ft_atoi(map_line[rows]);
-		free(map_line[rows]);
-		rows++;
+		matrix_line[c] = ft_atoi(map_line[c]);
+		free(map_line[c]);
 	}
 	free(map_line);
 }
@@ -83,8 +82,6 @@ void	read_from_file(char	*argv1, t_list *lst)
 	int		fd;
 
 	lst->length = which_length(argv1, lst);
-	/* printf("length:  %d\n", lst->length);
-	printf("width: %d\n", lst->width); */
 	lst->matrix = (int **)malloc(sizeof(int *) * (lst->length + 1));
 	fd = open(argv1, O_RDONLY);
 	i = 0;
@@ -95,8 +92,8 @@ void	read_from_file(char	*argv1, t_list *lst)
 	{
 		//one_line = get_next_line(fd);
 		fill_in_matrix(lst->matrix[i++], one_line);
+		free(one_line);
 	}
-	lst->matrix[i] = NULL;
 	close(fd);
 }
 
@@ -110,6 +107,7 @@ int	main(int argc, char *argv[])
 	if (!input)
 		return (0);
 	read_from_file(argv[1], input);
+	printf("length: %d, width: %d\n", input->length, input->width);
 	input->mlx = mlx_init();
 	if (!input->mlx)
 		return (perror("Mlx init failed"), 1);
@@ -134,8 +132,8 @@ int	main(int argc, char *argv[])
 		printf("%d ", input->matrix[i][j++]);
 		printf("\n");
 		i++;
-	} */
-	
+	}
+	 */
 	/* ------------------------------------------------------------------------------*/
 	
 }

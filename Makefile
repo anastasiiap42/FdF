@@ -4,7 +4,7 @@ NAME := fdf
 
 COMPILER := cc
 
-FLAGS := -Wall -Wextra -Werror
+FLAGS := -Wall -Wextra -Werror -g
 
 SRCS := read_file.c\
 fdf.c
