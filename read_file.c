@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:41:30 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/12 19:55:49 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:00:53 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,13 @@ int	main(int argc, char *argv[])
 	if (!input->mlx)
 		return (perror("Mlx new window failed"), 1);
 	input->zoom = 30;
-	input->image = mlx_new_image(input->mlx, 1920, 1080);
-	if (!input->image)
+	input->image.img = mlx_new_image(input->mlx, 1920, 1080);
+	if (!input->image.img)
 		return (perror("Mlx new image failed"), 1);
+	input->image.addr = mlx_get_data_addr(input->image.img, 
+		&input->image.b_per_p, &input->image.l_len, &input->image.end);
 	draw_lines(input);
-	//algorithm(50, 60, 40, 70, input);
+	mlx_put_image_to_window(input->mlx, input->window, input->image.img, 0, 0);
 	mlx_loop(input->mlx);
 
 	/* ----------------------- Printing part ----------------------------------------*/

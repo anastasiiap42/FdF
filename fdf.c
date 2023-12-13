@@ -6,19 +6,28 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 17:54:35 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/12 20:19:20 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/13 18:31:57 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	three_d(int *x, int *y, int z, t_list *lst)
+void	my_pixel_put(t_list *lst, int x, int y, int color)
 {
+	char	*dst;
+	int		offset;
+	/* int		xx;
+	int		yy;
+	
 	lst->angle = 0.6;
-	*x = (*x - *y) * cos(lst->angle);
-	*y = (*x + *y) * sin(lst->angle) - z;
-	*x *= lst->zoom;
-	*y *= lst->zoom;
+	xx = (x - y) * cos(lst->angle);
+	yy = (x + y) * sin(lst->angle) - lst->p_z; */
+	if (x >= 0 && x < 1920 && y >= 0 && y < 1080)
+	{
+		offset = y * lst->image.l_len + x * (lst->image.b_per_p / 8);
+		dst = lst->image.addr + offset;
+		*(unsigned int *)dst = color; 
+	}
 }
 
 int	my_abs(int a)
@@ -48,16 +57,17 @@ void	algorithm(int x1, int y1, int x2, int y2, t_list *lst)
 
 /* --------------------- Color ------------------------------------ */
 	printf("[%d][%d]\n", y1, x1);
-/* 	if (lst->matrix[y1][x1] != 0)
+	if (lst->p_z != 0)
 		lst->color = 0x0000FF;
 	else
-		lst->color = 0xffffff; */
-
-	// three_d(&x1, &y1, z1, lst);
-	// three_d(&x2, &y2, z2, lst);
+		lst->color = 0xffffff;
 
 /* ------------------------------- Zoom-------------------------------- */
 
+	x1 *= lst->zoom;
+	x2 *= lst->zoom;
+	y1 *= lst->zoom;
+	y2 *= lst->zoom;
 
 /* ---------------------- Drawing lines ------------------------------- */
 
@@ -66,12 +76,11 @@ void	algorithm(int x1, int y1, int x2, int y2, t_list *lst)
 	sx = greater_than(x1, x2);
 	sy = greater_than(y1, y2);
 	p = dx - dy;
-	while (x1 != x2 || y1 != y2)
+	while (1)
 	{
-		if (x1 > 0 && x1 < 1920 && y1 > 0 && y1 < 1080)
-			mlx_pixel_put(lst->mlx, lst->window, x1, y1, 0xffffff);
-		// if (x1 == x2 && y1 == y2)
-		// 	break ;
+		my_pixel_put(lst, x1, y1, lst->color);
+		if (x1 == x2 && y1 == y2)
+			break ;
 		p2 = 2 * p;
 		if (p2 > -dy)
 		{
@@ -86,6 +95,13 @@ void	algorithm(int x1, int y1, int x2, int y2, t_list *lst)
 	}
 }
 
+void	three_d(t_list *lst, int *x, int *y)
+{
+	lst->angle = 0.6;
+	*x = (*x - *y) * cos(lst->angle);
+	*y = (*x + *y) * sin(lst->angle) - lst->p_z;
+}
+
 void	draw_lines(t_list *lst)
 {
 	int	x;
@@ -95,30 +111,25 @@ void	draw_lines(t_list *lst)
 	int	xxx;
 	int	yyy;
 
-	printf("%i %i\n", lst->length, lst->width);
 	y = 0;
-	while (y <= lst->length - 2)
+	while (y <= lst->length)
 	{
 		x = 0;
-		while (x <= lst->width - 2)
+		while (x <= lst->width)
 		{
-			int	z1 = lst->matrix[y][x];
-			int	z2 = lst->matrix[y][x + 1];
-			int	z3 = lst->matrix[y + 1][x];
+			lst->p_z = lst->matrix[y][x];
 			xx = x;
 			yy = y;
 			xxx = x + 1;
-			yyy = y;
-			int xxxx = x;
-			int yyyy = y + 1;
-			three_d(&xx, &yy, z1, lst);
-			three_d(&xxx, &yyy, z2, lst);
-			three_d(&xxxx, &yyyy, z3, lst);
-			printf("%i %i %i %i\n", xx, yy, xxx, yyy);
+			yyy = y + 1;
+			three_d(lst, &xx, &yy);
+			three_d(lst, &xxx, &yyy);
 			if (x < lst->width)
-				algorithm(xx, yy, xxx, yyy, lst);
+				algorithm(xx, yy, xxx, yy, lst);
+				//algorithm(x, y, x + 1, y, lst);
 			if (y < lst->length)
-				algorithm(xx, yy, xxxx, yyyy, lst);
+				algorithm(xx, yy, xx, yyy, lst);
+				//algorithm(x, y, x, y + 1, lst);
 			x++;
 		}
 		y++;

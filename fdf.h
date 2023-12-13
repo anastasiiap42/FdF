@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:44:07 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/12 18:13:09 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:35:58 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,28 @@
 # include <mlx.h>
 # include <math.h>
 
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		b_per_p;
+	int		l_len;
+	int		end;
+}			t_img;
+
 typedef struct s_list
 {
-	int				p_x;
-	int				p_y;
+	int				p_z;
 	int				**matrix;
 	int				width;
 	int				length;
 
 	void			*mlx;
 	void			*window;
-	void			*image;
 	int				zoom;
 	int				color;
 	double			angle;
-
+	t_img			image;
 	struct s_list	*next;
 }		t_list;
 
