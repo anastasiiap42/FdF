@@ -6,29 +6,11 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 17:54:35 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/13 18:31:57 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/16 13:18:42 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	my_pixel_put(t_list *lst, int x, int y, int color)
-{
-	char	*dst;
-	int		offset;
-	/* int		xx;
-	int		yy;
-	
-	lst->angle = 0.6;
-	xx = (x - y) * cos(lst->angle);
-	yy = (x + y) * sin(lst->angle) - lst->p_z; */
-	if (x >= 0 && x < 1920 && y >= 0 && y < 1080)
-	{
-		offset = y * lst->image.l_len + x * (lst->image.b_per_p / 8);
-		dst = lst->image.addr + offset;
-		*(unsigned int *)dst = color; 
-	}
-}
 
 int	my_abs(int a)
 {
@@ -44,6 +26,13 @@ int	greater_than(int a, int b)
 		return (1);
 	else 
 		return (-1);
+}
+
+void	three_d(t_list *lst, int *x, int *y)
+{
+	lst->angle = 0.6;
+	*x = (*x - *y) * cos(lst->angle);
+	*y = (*x + *y) * sin(lst->angle) - lst->p_z;
 }
 
 void	algorithm(int x1, int y1, int x2, int y2, t_list *lst)
@@ -62,14 +51,9 @@ void	algorithm(int x1, int y1, int x2, int y2, t_list *lst)
 	else
 		lst->color = 0xffffff;
 
-/* ------------------------------- Zoom-------------------------------- */
 
-	x1 *= lst->zoom;
-	x2 *= lst->zoom;
-	y1 *= lst->zoom;
-	y2 *= lst->zoom;
-
-/* ---------------------- Drawing lines ------------------------------- */
+	zoom(&x1, &y1, &x2, &y2, lst);
+/* ---------------------- Drawing a line ------------------------------- */
 
 	dx = my_abs(x2 - x1);
 	dy = my_abs(y2 - y1);
@@ -95,13 +79,6 @@ void	algorithm(int x1, int y1, int x2, int y2, t_list *lst)
 	}
 }
 
-void	three_d(t_list *lst, int *x, int *y)
-{
-	lst->angle = 0.6;
-	*x = (*x - *y) * cos(lst->angle);
-	*y = (*x + *y) * sin(lst->angle) - lst->p_z;
-}
-
 void	draw_lines(t_list *lst)
 {
 	int	x;
@@ -110,6 +87,8 @@ void	draw_lines(t_list *lst)
 	int	yy;
 	int	xxx;
 	int	yyy;
+	int	xxxx;
+	int	yyyy;
 
 	y = 0;
 	while (y <= lst->length)
@@ -121,14 +100,17 @@ void	draw_lines(t_list *lst)
 			xx = x;
 			yy = y;
 			xxx = x + 1;
-			yyy = y + 1;
+			yyy = y;
+			xxxx = x;
+			yyyy = y + 1;
 			three_d(lst, &xx, &yy);
 			three_d(lst, &xxx, &yyy);
+			three_d(lst, &xxxx, &yyyy);
 			if (x < lst->width)
-				algorithm(xx, yy, xxx, yy, lst);
+				algorithm(xx, yy, xxx, yyy, lst);
 				//algorithm(x, y, x + 1, y, lst);
 			if (y < lst->length)
-				algorithm(xx, yy, xx, yyy, lst);
+				algorithm(xx, yy, xxxx, yyyy, lst);
 				//algorithm(x, y, x, y + 1, lst);
 			x++;
 		}

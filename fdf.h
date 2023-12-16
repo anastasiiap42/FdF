@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:44:07 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/13 17:35:58 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/16 13:19:17 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <errno.h>
 # include <mlx.h>
 # include <math.h>
+# include <X11/keysym.h>
+# include <X11/X.h>
 
 typedef struct s_img
 {
@@ -44,10 +46,17 @@ typedef struct s_list
 	int				color;
 	double			angle;
 	t_img			image;
+
+	int				offset_x;
+	int				offset_y;
 	struct s_list	*next;
 }		t_list;
 
 void	algorithm(int x1, int y1, int x2, int y2, t_list *lst);
 void	draw_lines(t_list *lst);
+void	read_from_file(char	*argv1, t_list *lst);
+void	my_pixel_put(t_list *lst, int x, int y, int color);
+void	zoom(int *x1, int *y1, int *x2, int *y2, t_list *lst);
+void	offset(int x1, int y1, int x2, int y2, t_list *lst);
 
 #endif

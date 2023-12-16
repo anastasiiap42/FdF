@@ -7,7 +7,9 @@ COMPILER := cc
 FLAGS := -Wall -Wextra -Werror -g
 
 SRCS := read_file.c\
-fdf.c
+fdf.c\
+main.c\
+fdf_utils.c
 
 LDFLAGS = -Lminilibx-linux -LLibft -lmlx -lXext -lX11 -lm -lft
 
