@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:41:30 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/16 13:25:56 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/17 15:12:27 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,18 @@ static int	which_length(char *argv1, t_list *lst)
 
 	flag = 0;
 	fd = open(argv1, O_RDONLY);
+	if (fd < 0)
+	{
+		perror("Open failed");
+		free(lst);
+		exit (1);
+	}
 	res = 0;
-	while (1)
+	while (errno != ENOMEM && errno != EROFS)
 	{
 		one_line = get_next_line(fd);
 		if (!one_line)
-			break;
+			return (close(fd), res);
 		if (flag == 0)
 		{
 			lst->width = which_width(one_line);
@@ -58,14 +64,14 @@ static int	which_length(char *argv1, t_list *lst)
 	return (res);
 }
 
-static void	fill_in_matrix(int *matrix_line, char *line)
+static int	fill_in_matrix(int *matrix_line, char *line)
 {
 	char	**map_line;
 	int		c;
 
 	map_line = ft_split(line, ' ');
 	if (!map_line)
-		return ;
+		return (0);
 	c = -1;
 	while (map_line[++c])
 	{
@@ -73,9 +79,10 @@ static void	fill_in_matrix(int *matrix_line, char *line)
 		free(map_line[c]);
 	}
 	free(map_line);
+	return (1);
 }
 
-void	read_from_file(char	*argv1, t_list *lst)
+int	read_from_file(char	*argv1, t_list *lst)
 {
 	int		i;
 	char	*one_line;
@@ -85,10 +92,7 @@ void	read_from_file(char	*argv1, t_list *lst)
 	lst->matrix = (int **)malloc(sizeof(int *) * (lst->length + 1));
 	fd = open(argv1, O_RDONLY);
 	if (fd < 0)
-	{
-		perror("Open failed");
-		exit(1);
-	}
+		return (perror("Open failed"), free(lst->matrix), 0);
 	i = 0;
 	while (i <= lst->length)
 		lst->matrix[i++] = (int *)malloc(sizeof(int) * (lst->width + 1));
@@ -98,8 +102,10 @@ void	read_from_file(char	*argv1, t_list *lst)
 		one_line = get_next_line(fd);
 		if (!one_line)
 			break ;
-		fill_in_matrix(lst->matrix[i++], one_line);
+		if (!fill_in_matrix(lst->matrix[i++], one_line))
+			return (free(one_line), error_clean(lst->matrix, fd), 0);
 		free(one_line);
 	}
 	close(fd);
+	return (1);
 }

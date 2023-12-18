@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:44:07 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/16 13:19:17 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/18 16:03:50 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,25 @@ typedef struct s_img
 	int		end;
 }			t_img;
 
+typedef struct s_point
+{
+	int	x;
+	int	y;
+	int	z;
+	int	tx;
+	int	ty;
+}			t_point;
+
+typedef struct s_math
+{
+	int		p;
+	int		p2;
+	int		dx;
+	int		dy;
+	int		sx;
+	int		sy;
+}			t_math;
+
 typedef struct s_list
 {
 	int				p_z;
@@ -47,16 +66,20 @@ typedef struct s_list
 	double			angle;
 	t_img			image;
 
+	t_point			point1;
+	t_point			point2;
+	t_math			math;
+
 	int				offset_x;
 	int				offset_y;
 	struct s_list	*next;
 }		t_list;
 
-void	algorithm(int x1, int y1, int x2, int y2, t_list *lst);
-void	draw_lines(t_list *lst);
-void	read_from_file(char	*argv1, t_list *lst);
+void	algorithm(t_list *lst);
+void	draw_lines(t_list *lst, int x, int y);
+int		read_from_file(char	*argv1, t_list *lst);
 void	my_pixel_put(t_list *lst, int x, int y, int color);
-void	zoom(int *x1, int *y1, int *x2, int *y2, t_list *lst);
-void	offset(int x1, int y1, int x2, int y2, t_list *lst);
+void	offset(t_list *lst);
+void	error_clean(int **array, int fd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 17:54:35 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/16 13:18:42 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/18 16:02:35 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,97 +24,78 @@ int	greater_than(int a, int b)
 {
 	if (a < b)
 		return (1);
-	else 
+	else
 		return (-1);
 }
 
-void	three_d(t_list *lst, int *x, int *y)
+void	zoom_and_3d(t_list *lst)
 {
-	lst->angle = 0.6;
-	*x = (*x - *y) * cos(lst->angle);
-	*y = (*x + *y) * sin(lst->angle) - lst->p_z;
-}
-
-void	algorithm(int x1, int y1, int x2, int y2, t_list *lst)
-{
-	int		p;
-	int		p2;
-	int		dx;
-	int		dy;
-	int		sx;
-	int		sy;
-
-/* --------------------- Color ------------------------------------ */
-	printf("[%d][%d]\n", y1, x1);
-	if (lst->p_z != 0)
-		lst->color = 0x0000FF;
+	lst->point1.z = lst->matrix[lst->point1.y][lst->point1.x];
+	lst->point2.z = lst->matrix[lst->point2.y][lst->point2.x];
+	if (lst->point1.z != 0)
+		lst->color = 0xcc1100;
 	else
 		lst->color = 0xffffff;
+	lst->point1.x *= lst->zoom;
+	lst->point1.y *= lst->zoom;
+	lst->point2.x *= lst->zoom;
+	lst->point2.y *= lst->zoom;
+	lst->point1.x = (lst->point1.x - lst->point1.y) * cos(lst->angle);
+	lst->point1.y = (lst->point1.x + lst->point1.y) * sin(lst->angle);
+	lst->point1.y -= lst->point1.z;
+	lst->point2.x = (lst->point2.x - lst->point2.y) * cos(lst->angle);
+	lst->point2.y = (lst->point2.x + lst->point2.y) * sin(lst->angle);
+	lst->point2.y -= lst->point2.z;
+}
 
-
-	zoom(&x1, &y1, &x2, &y2, lst);
-/* ---------------------- Drawing a line ------------------------------- */
-
-	dx = my_abs(x2 - x1);
-	dy = my_abs(y2 - y1);
-	sx = greater_than(x1, x2);
-	sy = greater_than(y1, y2);
-	p = dx - dy;
-	while (1)
+void	algorithm(t_list *lst)
+{
+	zoom_and_3d(lst);
+	lst->math.dx = my_abs(lst->point2.x - lst->point1.x);
+	lst->math.dy = my_abs(lst->point2.y - lst->point1.y);
+	lst->math.sx = greater_than(lst->point1.x, lst->point2.x);
+	lst->math.sy = greater_than(lst->point1.y, lst->point2.y);
+	lst->math.p = lst->math.dx - lst->math.dy;
+	while (!(lst->point1.x == lst->point2.x && lst->point1.y == lst->point2.y))
 	{
-		my_pixel_put(lst, x1, y1, lst->color);
-		if (x1 == x2 && y1 == y2)
-			break ;
-		p2 = 2 * p;
-		if (p2 > -dy)
+		my_pixel_put(lst, lst->point1.x, lst->point1.y, lst->color);
+		lst->math.p2 = 2 * lst->math.p;
+		if (lst->math.p2 > -lst->math.dy)
 		{
-			p -= dy;
-			x1 += sx;
+			lst->math.p -= lst->math.dy;
+			lst->point1.x += lst->math.sx;
 		}
-		if (p2 < dx)
+		if (lst->math.p2 < lst->math.dx)
 		{
-			p += dx;
-			y1 += sy;
+			lst->math.p += lst->math.dx;
+			lst->point1.y += lst->math.sy;
 		}
 	}
 }
 
-void	draw_lines(t_list *lst)
+void	draw_lines(t_list *lst, int x, int y)
 {
-	int	x;
-	int	y;
-	int	xx;
-	int	yy;
-	int	xxx;
-	int	yyy;
-	int	xxxx;
-	int	yyyy;
-
-	y = 0;
-	while (y <= lst->length)
+	while (++y < lst->length)
 	{
-		x = 0;
-		while (x <= lst->width)
+		x = -1;
+		while (++x < lst->width)
 		{
-			lst->p_z = lst->matrix[y][x];
-			xx = x;
-			yy = y;
-			xxx = x + 1;
-			yyy = y;
-			xxxx = x;
-			yyyy = y + 1;
-			three_d(lst, &xx, &yy);
-			three_d(lst, &xxx, &yyy);
-			three_d(lst, &xxxx, &yyyy);
-			if (x < lst->width)
-				algorithm(xx, yy, xxx, yyy, lst);
-				//algorithm(x, y, x + 1, y, lst);
-			if (y < lst->length)
-				algorithm(xx, yy, xxxx, yyyy, lst);
-				//algorithm(x, y, x, y + 1, lst);
-			x++;
+			if (x < lst->width - 1)
+			{
+				lst->point1.x = x;
+				lst->point2.x = x + 1;
+				lst->point1.y = y;
+				lst->point2.y = y;
+				algorithm(lst);
+			}
+			if (y < lst->length - 1)
+			{
+				lst->point1.x = x;
+				lst->point2.x = x;
+				lst->point1.y = y;
+				lst->point2.y = y + 1;
+				algorithm(lst);
+			}
 		}
-		y++;
 	}
-	printf("DONE\n");
 }
