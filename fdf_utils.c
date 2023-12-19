@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:10:32 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/18 16:04:40 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/19 12:03:03 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,15 @@ void	offset(t_list *lst)
 	lst->point2.y += lst->offset_y;
 }
 
-void	error_clean(int **array, int fd)
+void	array_free(int **array, t_list *lst)
 {
 	int	i;
 
 	i = 0;
-	while (array[i])
+	while (i < lst->length)
 	{
 		free(array[i]);
 		i++;
 	}
 	free(array);
-	close(fd);
 }

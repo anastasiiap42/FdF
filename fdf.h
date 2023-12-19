@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:44:07 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/18 16:03:50 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/19 11:55:14 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,6 @@ void	draw_lines(t_list *lst, int x, int y);
 int		read_from_file(char	*argv1, t_list *lst);
 void	my_pixel_put(t_list *lst, int x, int y, int color);
 void	offset(t_list *lst);
-void	error_clean(int **array, int fd);
+void	array_free(int **array, t_list *lst);
 
 #endif
