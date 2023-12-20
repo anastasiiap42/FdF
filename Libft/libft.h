@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 10:02:00 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/06 14:51:58 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/20 21:32:25 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,7 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 int			ft_tolower(int c);
 int			ft_toupper(int c);
 int			ft_printf(const char *input, ...);
-char		*ft_strjoin_gnl(char *s1, char *s2);
-char		*ft_strtrim_gnl(char *s1, char set);
-char		*ft_strtrim_the_rest(char *s1, char set);
-char		*get_next_line(int fd);
+int			get_next_line(int fd, char **line_to_return, int run_id);
 void		ft_swap(int *a, int *b);
 
 #endif

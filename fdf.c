@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 17:54:35 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/18 16:02:35 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/20 10:46:59 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,14 @@ void	zoom_and_3d(t_list *lst)
 	lst->point1.z = lst->matrix[lst->point1.y][lst->point1.x];
 	lst->point2.z = lst->matrix[lst->point2.y][lst->point2.x];
 	if (lst->point1.z != 0)
+	{
+		lst->point1.z += lst->height;
 		lst->color = 0xcc1100;
+	}
 	else
 		lst->color = 0xffffff;
+	if (lst->point2.z != 0)
+		lst->point2.z += lst->height;
 	lst->point1.x *= lst->zoom;
 	lst->point1.y *= lst->zoom;
 	lst->point2.x *= lst->zoom;

@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:44:07 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/19 11:55:14 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/20 21:20:27 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_list
 	int				**matrix;
 	int				width;
 	int				length;
+	int				height;
 
 	void			*mlx;
 	void			*window;
@@ -77,7 +78,7 @@ typedef struct s_list
 
 void	algorithm(t_list *lst);
 void	draw_lines(t_list *lst, int x, int y);
-int		read_from_file(char	*argv1, t_list *lst);
+int		read_from_file(char	*argv1, t_list *lst, char *one_line);
 void	my_pixel_put(t_list *lst, int x, int y, int color);
 void	offset(t_list *lst);
 void	array_free(int **array, t_list *lst);

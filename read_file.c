@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:41:30 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/19 12:09:37 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/20 21:40:55 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,22 @@ static int	which_length(char *argv1, t_list *lst)
 	int		res;
 	char	*one_line;
 	int		fd;
-	int		flag;
+	int		status;
 
-	flag = 0;
 	fd = open(argv1, O_RDONLY);
 	if (fd < 0)
-		return (perror("Open failed"), free(lst), exit (1), 1);
+		return (perror("Open failed"), exit(1), -1);
 	res = 0;
-	while (errno != ENOMEM && errno != EROFS)
+	status = 1;
+	while (status > 0)
 	{
-		one_line = get_next_line(fd);
-		if (!one_line)
-			return (close(fd), res);
-		if (flag == 0)
-		{
+		status = get_next_line(fd, &one_line, 1);
+		if (status == 0)
+			return (close(fd), free(one_line), res);
+		if (status == -1)
+			return (close(fd), free(one_line), -1);
+		if (one_line[0] != '\0' && one_line[0] != '\n')
 			lst->width = which_width(one_line);
-			flag = 1;
-		}
 		res++;
 		free(one_line);
 	}
@@ -78,35 +77,49 @@ static int	fill_in_matrix(int *matrix_line, char *line)
 	return (1);
 }
 
-int	read_from_file(char	*argv1, t_list *lst)
+static int	malloc_matrix(char *argv1, t_list *lst)
 {
-	int		i;
-	char	*one_line;
-	int		fd;
+	int	i;
 
-	one_line = "";
+	i = -1;
 	lst->length = which_length(argv1, lst);
+	if (lst->length < 0)
+		return (0);
 	lst->matrix = (int **)malloc(sizeof(int *) * (lst->length));
 	if (!lst->matrix)
 		return (0);
+	while (++i < lst->length)
+	{
+		lst->matrix[i] = (int *)malloc(sizeof(int) * (lst->width));
+		if (!lst->matrix[i])
+			return (free(lst->matrix), 0);
+	}
+	return (1);
+}
+
+int	read_from_file(char	*argv1, t_list *lst, char *one_line)
+{
+	int		i;
+	int		fd;
+	int		status;
+
 	fd = open(argv1, O_RDONLY);
 	if (fd < 0)
-		return (perror("Open failed"), free(lst->matrix), 0);
+		return (perror("Open failed"), 0);
+	if (malloc_matrix(argv1, lst) == 0)
+		return (close(fd), 0);
 	i = 0;
-	while (i < lst->length)
-		lst->matrix[i++] = (int *)malloc(sizeof(int) * (lst->width));
-	i = 0;
-	while (errno != ENOMEM && errno != EROFS)
+	status = 1;
+	while (status > 0)
 	{
-		one_line = get_next_line(fd);
-		if (!one_line)
-			break ;
+		status = get_next_line(fd, &one_line, 2);
+		if (status == -1)
+			return (close(fd), free(one_line), 0);
+		if (status == 0)
+			return (close(fd), free(one_line), 1);
 		if (!fill_in_matrix(lst->matrix[i++], one_line))
 			return (free(one_line), array_free(lst->matrix, lst), close(fd), 0);
 		free(one_line);
 	}
-	if (errno == ENOMEM || errno == EROFS)
-		return (0);
-	close(fd);
-	return (1);
+	return (close(fd), 1);
 }

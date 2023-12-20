@@ -4,7 +4,7 @@ NAME := libft.a
 
 COMPILER := cc
 
-FLAGS := -Wall -Wextra -Werror
+FLAGS := -Wall -Wextra -Werror -g
 
 SRCS := ft_atoi.c\
 ft_bzero.c\
@@ -47,7 +47,6 @@ ft_printf/ft_putnbr.c\
 ft_printf/ft_putstr.c\
 ft_printf/ft_put_u.c\
 ft_printf/ft_put_voidp.c\
-get_next_line_utils.c\
 get_next_line.c\
 ft_swap.c
 

@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:10:32 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/19 12:03:03 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/20 13:05:32 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	my_pixel_put(t_list *lst, int x, int y, int color)
 	{
 		offset = y * lst->image.l_len + x * (lst->image.b_per_p / 8);
 		dst = lst->image.addr + offset;
-		*(unsigned int *)dst = color; 
+		*(unsigned int *)dst = color;
 	}
 }
 
