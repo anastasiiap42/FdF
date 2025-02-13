@@ -30,6 +30,7 @@ This version includes **all bonuses**, making it one of the most feature-complet
 
 ![Demo](https://miro.medium.com/v2/resize:fit:1400/1*FROkGQ7V6HEGEeJxim0ZgA.gif)
 
+
 ## 🛠️ Installation & Usage
 
 ### 📥 Prerequisites
