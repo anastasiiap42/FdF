@@ -35,7 +35,7 @@ This version includes **all bonuses**, making it one of the most feature-complet
 ### 📥 Prerequisites
 
 - **Linux/macOS**
-- `gcc` (or another C compiler)
+- `cc`
 - `make`
 - `MiniLibX` (graphics library)
 
@@ -54,17 +54,6 @@ This version includes **all bonuses**, making it one of the most feature-complet
    ```bash
    ./fdf 42.fdf
    ```
-
-### 🎮 Controls
-
-| Action            | Key / Mouse    |
-|------------------|---------------|
-| **Pan (Move view)** | Left-click + Drag |
-| **Rotate (X/Y axes)** | Right-click + Drag |
-| **Zoom In/Out** | Scroll Wheel |
-| **Change Projection** | `P` |
-| **Modify Altitude** | `+ / -` |
-| **Flatten Terrain** | `/` |
 
 ## 💡 Credits
 
