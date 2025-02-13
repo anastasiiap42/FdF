@@ -28,7 +28,7 @@ This version includes **all bonuses**, making it one of the most feature-complet
 
 ## Demo
 
-<img src="https://miro.medium.com/v2/resize:fit:1400/1*FROkGQ7V6HEGEeJxim0ZgA.gif" alt="Demo" width="500">
+![Demo](https://user-images.githubusercontent.com/21006147/190404352-288d7bf1-5f43-4e2d-8033-f16bca534ca6.gif)
 
 
 ## 🛠️ Installation & Usage
