@@ -66,10 +66,6 @@ This version includes **all bonuses**, making it one of the most feature-complet
 | **Modify Altitude** | `+ / -` |
 | **Flatten Terrain** | `/` |
 
-## 📜 License
-
-This project is released under the **MIT License**. Feel free to modify and distribute it as you wish.
-
 ## 💡 Credits
 
 Developed by **Anastasiia Pashkova**  
