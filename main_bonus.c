@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 11:00:00 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/21 20:34:53 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/21 20:45:01 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "fdf_bonus.h"
 
 void	list_init(t_list *lst)
 {
@@ -44,6 +44,47 @@ int	key_handling(int the_key, t_list *lst)
 {
 	if (the_key == XK_Escape)
 		close_mlx(lst);
+	if (the_key == XK_plus)
+		lst->zoom += 1;
+	if (the_key == XK_minus)
+		lst->zoom -= 1;
+	if (the_key == XK_KP_Add)
+		lst->height += 1;
+	if (the_key == XK_KP_Subtract)
+		lst->height -= 1;
+	if (the_key == XK_Down)
+		lst->offset_y += 10;
+	if (the_key == XK_Up)
+		lst->offset_y -= 10;
+	if (the_key == XK_Right)
+		lst->offset_x += 10;
+	if (the_key == XK_Left)
+		lst->offset_x -= 10;
+	mlx_destroy_image(lst->mlx, lst->image.img);
+	lst->image.img = mlx_new_image(lst->mlx, 1920, 1080);
+	lst->image.addr = mlx_get_data_addr(lst->image.img,
+			&lst->image.b_per_p, &lst->image.l_len, &lst->image.end);
+	draw_lines(lst, -1, -1);
+	mlx_put_image_to_window(lst->mlx, lst->window, lst->image.img, 0, 0);
+	return (0);
+}
+
+int	mouse_handling(int the_key, int x, int y, t_list *lst)
+{
+	x = 1;
+	y = 1;
+	if (the_key == 4)
+		lst->angle -= 0.1;
+	if (the_key == 5)
+		lst->angle += 0.1;
+	if (the_key == 2)
+		lst->angle = 0;
+	mlx_destroy_image(lst->mlx, lst->image.img);
+	lst->image.img = mlx_new_image(lst->mlx, 1920, 1080);
+	lst->image.addr = mlx_get_data_addr(lst->image.img,
+			&lst->image.b_per_p, &lst->image.l_len, &lst->image.end);
+	draw_lines(lst, -1, -1);
+	mlx_put_image_to_window(lst->mlx, lst->window, lst->image.img, 0, 0);
 	return (0);
 }
 
@@ -69,6 +110,8 @@ int	main(int argc, char *argv[])
 	mlx_put_image_to_window(input.mlx, input.window, input.image.img, 0, 0);
 	mlx_hook(input.window, DestroyNotify, 0, close_mlx, &input);
 	mlx_hook(input.window, KeyPress, KeyPressMask, key_handling, &input);
+	mlx_hook(input.window, ButtonPress, ButtonPressMask, mouse_handling,
+		&input);
 	mlx_loop(input.mlx);
 }
 	/*int i = 0;

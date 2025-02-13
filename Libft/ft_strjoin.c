@@ -6,13 +6,13 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 11:22:31 by apashkov          #+#    #+#             */
-/*   Updated: 2023/09/15 13:23:06 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/21 18:41:23 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*new;
 	size_t	x;

@@ -6,13 +6,13 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:32:02 by apashkov          #+#    #+#             */
-/*   Updated: 2023/09/15 12:57:41 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/21 18:42:42 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t s)
+size_t	ft_strlcat(char *dst, char *src, size_t s)
 {
 	size_t	i;
 

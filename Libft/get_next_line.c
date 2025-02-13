@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:09:34 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/20 21:34:11 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/21 20:12:39 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static int	ft_strjoin_gnl(char **s1, char *s2)
 	new = (char *)malloc((ft_strlen(*s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!new)
 		return (-1);
-	while (*s1[++x])
-		new[x] = *s1[x];
+	while ((*s1)[++x])
+		new[x] = (*s1)[x];
 	while (*s2)
 		new[x++] = *s2++;
 	new[x] = '\0';
@@ -86,7 +86,7 @@ static int	ft_strtrim_the_rest(char **s1, char set)
 	free(*s1);
 	*s1 = str;
 	if (ft_strlen(*s1) == 0)
-		return (0);
+		return (*s1 = NULL, free(str), 0);
 	return (1);
 }
 
@@ -123,19 +123,20 @@ int	get_next_line(int fd, char **line_to_return, int run_id)
 	static int	i;
 
 	i = 0;
+	run_id = 0;
 	*line_to_return = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (-1);
 	if (read_file(&st_buffer, fd) == -1)
 		return (free(st_buffer), -1);
 	if (ft_strtrim_gnl(st_buffer, '\n', line_to_return) == -1)
-		return (-1);
+		return (free(st_buffer), -1);
 	temp = ft_strtrim_the_rest(&st_buffer, '\n');
 	if (temp == -1)
-		return (-1);
+		return (free(st_buffer), -1);
 	if (temp == 0 && ft_strlen(*line_to_return) != 0)
 	{
-		if (run_id == 2)
+		if (st_buffer && st_buffer[0])
 			free(st_buffer);
 		return (0);
 	}

@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 10:02:00 by apashkov          #+#    #+#             */
-/*   Updated: 2023/12/20 21:32:25 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/21 20:03:49 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10000
+#  define BUFFER_SIZE 100
 # endif
 
 char		*free_array(char **array);
@@ -39,20 +39,20 @@ void		ft_putchar_fd(char c, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
 void		ft_putstr_fd(char *s, int fd);
-char		**ft_split(char const *s, char c);
+char		**ft_split(char *s, char c);
 char		*ft_strchr(const char *string, int ch);
 char		*ft_strdup(const char *s);
-char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strjoin(char *s1, char *s2);
 void		ft_striteri(char *s, void (*f)(unsigned int, char*));
-size_t		ft_strlcat(char *dst, const char *src, size_t s);
-size_t		ft_strlcpy(char *dest, const char *src, size_t size);
-size_t		ft_strlen(const char *string);
-char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+size_t		ft_strlcat(char *dst, char *src, size_t s);
+size_t		ft_strlcpy(char *dest, char *src, size_t size);
+size_t		ft_strlen(char *string);
+char		*ft_strmapi(char *s, char (*f)(unsigned int, char));
 int			ft_strncmp(char *s1, char *s2, unsigned int n);
 char		*ft_strnstr(const char *str, const char *to_find, size_t s);
-char		*ft_strtrim(char const *s1, char const *set);
+char		*ft_strtrim(char *s1, char *set);
 char		*ft_strrchr(const char *string, int ch);
-char		*ft_substr(char const *s, unsigned int start, size_t len);
+char		*ft_substr(char *s, unsigned int start, size_t len);
 int			ft_tolower(int c);
 int			ft_toupper(int c);
 int			ft_printf(const char *input, ...);

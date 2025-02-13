@@ -6,21 +6,21 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 20:37:26 by apashkov          #+#    #+#             */
-/*   Updated: 2023/09/11 10:28:48 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/21 18:40:44 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *string)
+size_t	ft_strlen(char *string)
 {
-	unsigned int	i;
+	size_t	i;
 
 	i = 0;
+	if (!string)
+		return (-1);
 	while (string[i])
-	{
 		i++;
-	}
 	return (i);
 }
 /*#include <stdio.h>

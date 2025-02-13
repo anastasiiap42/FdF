@@ -6,7 +6,7 @@
 /*   By: apashkov <apashkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:54:18 by apashkov          #+#    #+#             */
-/*   Updated: 2023/11/14 14:50:53 by apashkov         ###   ########.fr       */
+/*   Updated: 2023/12/21 18:45:30 by apashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*free_array(char **array)
 	return (NULL);
 }
 
-static size_t	check_nb_str(char const *s, char c)
+static size_t	check_nb_str(char *s, char c)
 {
 	size_t	counter;
 	size_t	i;
@@ -50,7 +50,7 @@ static size_t	check_nb_str(char const *s, char c)
 	return (counter);
 }
 
-static char	*put_words(char const *s, char c)
+static char	*put_words(char *s, char c)
 {
 	size_t	len;
 	char	*str;
@@ -65,7 +65,7 @@ static char	*put_words(char const *s, char c)
 	return (str);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	char	**arr;
 	size_t	len;
